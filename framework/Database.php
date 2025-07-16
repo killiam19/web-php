@@ -3,6 +3,7 @@
 class Database
 {
     private $connection;
+    private $statement; //Sentencia
 
     public function __construct()
     {
@@ -11,8 +12,25 @@ class Database
         $this->connection = new PDO($dsn,'root','1213123Shape');
     }
 
-    public function query($sql)
+    public function query($sql, $params =[])
     {
-        return $this->connection->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $this->statement = $this->connection->prepare($sql);
+        $this->statement->execute($params);
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function firstOrFail()
+    {
+        $result = $this->statement->fetch(PDO::FETCH_ASSOC);
+
+        if(!$result){
+            exit('404 Not Found');
+        }
+        return $result;
     }
 }
