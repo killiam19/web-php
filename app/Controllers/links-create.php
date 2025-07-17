@@ -3,27 +3,13 @@
 $title = 'Registrar proyecto';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title          = $_POST['title'] ?? '';
-    $url            = $_POST['url'] ?? '';
-    $description    = $_POST['description'] ?? '';
+$validator = new Validator($_POST,[
+    'title' => 'required|min:3|max:190',
+    'url' => 'required|url|max:190',
+    'description' => 'required|min:3|max:500',
+]);
 
-    $errors = [];
-
-    if (empty($title)) {
-        $errors[] = 'El título es obligatorio.';
-    }
-
-    if (empty($url)) {
-        $errors[] = 'La URL es obligatoria.';
-    } elseif (!filter_var($url, FILTER_VALIDATE_URL)) {
-        $errors[] = 'La URL no es válida.';
-    }
-
-    if (empty($description)) {
-        $errors[] = 'La descripción es obligatoria.';
-    }
-
-    if (empty($errors)) {
+    if ($validator->passes()) {
         $db->query(
             'INSERT INTO links (title, url, description) VALUES (:title, :url, :description)',
             [
@@ -35,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: /links');
         exit;
+    } else {
+        $errors = $validator->errors();
     }
 }
 
