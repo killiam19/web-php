@@ -5,11 +5,11 @@ require __DIR__ . '/../app/Controllers/HomeController.php';
 require __DIR__ . '/../app/Controllers/LinkController.php';
 require __DIR__ . '/../app/Controllers/PostController.php';
 
-$routes->get('/',  [HomeController::class,'index']);
-$routes->get('/about',  [AboutController::class,'index']);
-$routes->get('/post',  [PostController::class,'show']);
+$router->get('/',  [HomeController::class,'index']);
+$router->get('/about',  [AboutController::class,'index']);
+$router->get('/post',  [PostController::class,'show']);
 
-$routes->get('/links',  [LinkController::class,'index']);
-$routes->get('/links/create',  [LinkController::class,'create']);
-$routes->get('/links/store',  [LinkController::class,'store']);
+$router->get('/links',         [LinkController::class,'index']);
+$router->get('/links/create',  [LinkController::class,'create']);
+$router->post('/links/store',   [LinkController::class,'store']);
 
