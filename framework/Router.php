@@ -19,18 +19,19 @@ class Router
         $this->routes['POST'][$uri] = $action;
     }
 
+    public function delete(string $uri, array $action)
+    {
+        $this->routes['DELETE'][$uri] = $action;
+    }
+
     public function run()
     {
 
         $uri = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH); //PHP_URL_QUERY
 
-        $method = $_SERVER['REQUEST_METHOD']; // GET,POST
+        $method =  $_POST['_method'] ?? $_SERVER['REQUEST_METHOD']; // GET,POST, DELETE.
         
         $action = $this->routes[$method] [$uri] ?? null;
-
-/*         echo '<pre>';
-        var_dump($this->routes);
-        die(); */
 
         if (!$action) {
             exit('Route not found' . $method . '' . $uri);

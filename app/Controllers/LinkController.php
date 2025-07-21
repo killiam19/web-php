@@ -50,4 +50,16 @@ class LinkController
 
         require __DIR__ . '/../../resources/links-create.template.php';
     }
+
+    public function destroy()
+    {
+        $db = new Database();
+
+        $db->query('DELETE FROM links WHERE id = :id',[
+            'id' => $_POST['id'] ?? null,
+        ]);
+
+        header('Location: /links');
+        exit;
+    }
 }
