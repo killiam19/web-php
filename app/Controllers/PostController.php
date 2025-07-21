@@ -8,8 +8,6 @@ class PostController
 {
     public function show()
     {
-    
-        $title='Proyectos';
 
         $db = new Database();
 
@@ -17,6 +15,9 @@ class PostController
             'id' => $_GET['id'] ?? null,
         ])->firstOrFail();
 
-        require __DIR__. '/../../resources/post.template.php';
+          view('post',[
+            'title' => 'Proyectos',
+            'post' => $post,
+        ]);
   }
 }
