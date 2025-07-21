@@ -51,6 +51,20 @@ class LinkController
         require __DIR__ . '/../../resources/links-create.template.php';
     }
 
+    public function edit()
+    {
+        $title = 'Editar proyecto';
+
+        $db = new Database();
+
+        $link = $db->query('SELECT * FROM links WHERE id = :id', [
+            'id' => $_GET['id'] ?? null,
+        ])->firstOrFail();
+
+        require __DIR__ . '/../../resources/links-edit.template.php';
+
+    }
+
     public function destroy()
     {
         $db = new Database();
