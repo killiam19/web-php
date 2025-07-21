@@ -6,6 +6,7 @@
 
 <div class="w-full max-w-xl mx-auto">
     <form action="/links/update?id=<?= $link['id']?>" method="POST">
+        <input type="hidden" name="_method" value="PUT">
         <div class="mb-4">
             <label class="text-sm font-semibold text-gray-900">Título</label>
             <div class="mt-2">
@@ -41,7 +42,7 @@
 
         <div class="mt-4">
             <button type="submit" class="w-full rounded-md bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-2 text-center text-sm font-semibold">
-                Crear &rarr;
+                Actualizar &rarr;
             </button>
         </div>
     </form>
