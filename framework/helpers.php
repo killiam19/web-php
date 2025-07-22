@@ -79,3 +79,10 @@ if (!function_exists('resource_path')) {
         return root_path("resources/{$path}");
     }
 }
+
+if (!function_exists('isAuthenticated')) {
+    function isAuthenticated(): bool
+    {
+        return (bool) ($_SESSION['user'] ?? false);
+    }
+}
