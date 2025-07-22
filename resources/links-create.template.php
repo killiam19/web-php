@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/partials/header.php'; ?>
+<?php require resource_path('partials/header.php'); ?>
 
 <div class="border-b border-gray-200 pb-8 mb-8">
     <h2 class="text-4xl font-semibold text-gray-900 sm:text-5xl text-center">Crea un enlace o proyecto</h2>
@@ -13,7 +13,7 @@
                     type="text" 
                     name="title" 
                     class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" 
-                    value="<?= $_POST['title'] ?? '' ?>">
+                    value="<?= old('title') ?>">
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                     type="text" 
                     name="url" 
                     class="w-full outline-1 outline-gray-300 rounded-md px-3 py-2 text-gray-900" 
-                    value="<?= $_POST['url'] ?? '' ?>">
+                    value="<?= old('url') ?>">
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                     name="description" 
                     rows="2" 
                     class="w-full outline-1 outline-gray-300 rounded-md px-4 py-2 text-gray-900"
-                ><?= $_POST['description'] ?? '' ?></textarea>
+                ><?= old('description') ?></textarea>
             </div>
         </div>
 
@@ -55,4 +55,4 @@
     <?php endif; ?>
 </div>
 
-<?php require __DIR__ . '/partials/footer.php'; ?>
+<?php require resource_path('partials/footer.php'); ?>

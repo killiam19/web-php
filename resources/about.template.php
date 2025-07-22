@@ -1,6 +1,6 @@
-    <?php require __DIR__ . '/partials/header.php'; ?>
+<?php require resource_path('partials/header.php'); ?>
 
     <h1>Sobre mi</h1>
     
-  <?php require __DIR__ . '/partials/footer.php'; ?>
+<?php require resource_path('partials/footer.php'); ?>
 
