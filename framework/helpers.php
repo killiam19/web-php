@@ -1,25 +1,25 @@
 <?php
 
 use Framework\Database;
+use Framework\SessionManager;
 
-if(!function_exists('root_path')){
- function root_path(string $path):string
+if (!function_exists('root_path')) {
+    function root_path(string $path): string
     {
         // return __DIR__ . '/../';
         return dirname(__DIR__) . '/' . normalize_path($path);
     }
 }
 
-if(!function_exists('normalize_path')){
-    function normalize_path(string $path):string
+if (!function_exists('normalize_path')) {
+    function normalize_path(string $path): string
     {
-        return trim($path,'/');
+        return trim($path, '/');
     }
 }
 
-
-if(!function_exists('view')){
-    function view(string $view, array $data = []):void
+if (!function_exists('view')) {
+    function view(string $view, array $data = []): void
     {
         extract($data);
 
@@ -29,8 +29,8 @@ if(!function_exists('view')){
     }
 }
 
-if (!function_exists('old')) {
-    function old (string $key, mixed $default = null): mixed
+if (!function_exists('old')) { 
+    function old (string $key, mixed $default = null): mixed 
     {
         return $_POST[$key] ?? $default;
     }
@@ -50,7 +50,7 @@ if (!function_exists('config')) {
 
         return $config[$key] ?? $default;
     }
-}     
+}
 
 if (!function_exists('redirect')) {
     function redirect(string $uri): void
@@ -60,18 +60,18 @@ if (!function_exists('redirect')) {
     }
 }
 
-if(!function_exists('db')){
+if (!function_exists('db')) {
     function db(): Database
     {
         static $db = null;
 
         if ($db === null) {
             $db = new Database();
-            }
-            return $db;
+        }
+
+        return $db;
     }
 }
-
 
 if (!function_exists('resource_path')) {
     function resource_path(string $path = ''): string 
@@ -88,9 +88,33 @@ if (!function_exists('isAuthenticated')) {
 }
 
 if (!function_exists('back')) {
-    function back():void
+    function back(): void
     {
         header('Location: ' . $_SERVER['HTTP_REFERER'] ?? '/');
-        exit; //REFERRER
+        exit;
+    }
+}
+
+if (!function_exists('session')) {
+    function session(): SessionManager
+    {
+        return new SessionManager();        
+    }
+}
+
+if (!function_exists('errors')) {
+    function errors(): string
+    {
+        $errors = session()->getFlash('errors') ?? [];
+
+        $html = '<ul class="mt-4 text-red-500">';
+
+        foreach ($errors as $error) {
+            $html .= "<li class='text-xs'>&rarr; {$error}</li>";
+        }
+        
+        $html .= '</ul>';
+    
+        return $html;
     }
 }
