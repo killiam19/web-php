@@ -56,6 +56,9 @@ class Validator
 
     protected function redirectIfFailed(): void
     {
+        $session = new SessionManager();
+        $session->setFlash('error', $this->errors);
+        
         back();
     }
 
