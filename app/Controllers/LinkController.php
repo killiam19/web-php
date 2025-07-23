@@ -24,13 +24,12 @@ class LinkController
 
     public function store()
     {
-        $validator = new Validator($_POST, [
+          Validator::make($_POST, [
             'title'         => 'required|min:3|max:190',
             'url'           => 'required|url|max:190',
             'description'   => 'required|min:10|max:500',
         ]);
 
-        if ($validator->passes()) {
             db()->query(
                 'INSERT INTO links (title, url, description) VALUES (:title, :url, :description)',
                 [
@@ -41,13 +40,6 @@ class LinkController
             );
 
          redirect ('/links');
-            exit;
-        } 
-        
-             view('links-create',[
-            'title' => 'Registrar proyecto',
-            'errors' => $validator->errors(),
-        ]);
     }
 
     public function edit()
@@ -63,7 +55,7 @@ class LinkController
 
     public function update()
     {
-        $validator = new Validator($_POST, [
+       Validator::make($_POST, [
             'title'         => 'required|min:3|max:190',
             'url'           => 'required|url|max:190',
             'description'   => 'required|min:10|max:500',
@@ -73,7 +65,6 @@ class LinkController
             'id' => $_GET['id'] ?? null,
         ])->firstOrFail();
 
-        if ($validator->passes()) {
             db()->query(
                 'UPDATE links SET title = :title, url = :url, description = :description WHERE id = :id',
                 [
@@ -85,12 +76,6 @@ class LinkController
             );
 
          redirect ('/links');
-        }
-
-         view('links-edit',[
-            'title' => 'Editar proyecto',
-            'errors' => $validator->errors()
-        ]);
     }
 
     public function destroy()
