@@ -18,4 +18,5 @@ $router->get('/links/edit',      [LinkController::class, 'edit'],   Authenticate
 $router->put('/links/update',    [LinkController::class, 'update'], Authenticated::class);
 $router->delete('/links/delete', [LinkController::class, 'destroy'],Authenticated::class);
 
-$router->get('/login', [AuthController::class,'login']);
+$router->get('/login',  [AuthController::class,'login']);
+$router->post('/login', [AuthController::class,'authenticate']);

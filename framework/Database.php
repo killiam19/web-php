@@ -7,27 +7,28 @@ use PDO;
 class Database
 {
     private $connection;
-    private $statement; //Sentencia
+    private $statement; // sentencia
 
     public function __construct()
     {
-       // $dsn ='mysql:host=127.0.0.1;dbname=web-php;charset=utf8mb4';
-       $dsn = sprintf(
-        'mysql:host=%s;dbname=%s;charset=utf8mb4',
-        config('host', 'localhost'),
-        config('dbname', 'web'),
-        config('charset'),
-       );
+        // $dsn = 'mysql:host=127.0.0.1;dbname=web-php;charset=utf8mb4';
+        $dsn = sprintf(
+            'mysql:host=%s;dbname=%s;charset=%s',
+            config('host', 'localhost'),
+            config('dbname', 'web'),
+            config('charset')
+        );
 
-       //var_dump($dsn); die();
+        // var_dump($dsn); die();
 
-        $this->connection = new PDO($dsn,config ('username'),config('password'), config('options',[]));
+        $this->connection = new PDO($dsn, config('username'), config('password'), config('options', []));
     }
 
-    public function query($sql, $params =[])
+    public function query($sql, $params = [])
     {
         $this->statement = $this->connection->prepare($sql);
         $this->statement->execute($params);
+
         return $this;
     }
 
@@ -36,13 +37,19 @@ class Database
         return $this->statement->fetchAll();
     }
 
+    public function first()
+    {
+        return $this->statement->fetch();
+    }
+
     public function firstOrFail()
     {
-        $result = $this->statement->fetch();
+        $result = $this->first();
 
-        if(!$result){
+        if (!$result) {
             exit('404 Not Found');
         }
+
         return $result;
     }
 }
