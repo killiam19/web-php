@@ -39,7 +39,7 @@ class LinkController
                 ]
             );
 
-         redirect ('/links');
+         redirect ('/links/create', 'Proyecto creado con éxito');
     }
 
     public function edit()
@@ -75,7 +75,7 @@ class LinkController
                 ]
             );
 
-         redirect ('/links');
+         redirect ('/links/edit?id=' . $link ['id'], 'Proyecto editado con éxito');
     }
 
     public function destroy()
