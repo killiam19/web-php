@@ -32,7 +32,9 @@ if (!function_exists('view')) {
 if (!function_exists('old')) { 
     function old (string $key, mixed $default = null): mixed 
     {
-        return $_POST[$key] ?? $default;
+        $key = 'old_' . $key;
+
+        return session()->getFlash($key,$default);
     }
 }
 
@@ -106,6 +108,14 @@ if (!function_exists('errors')) {
     function errors(): string
     {
         $errors = session()->getFlash('errors') ?? [];
+
+        if (empty($errors)){
+            return '';
+        }
+
+        if(!is_array($errors)){
+          $errors = [$errors];  
+        }
 
         $html = '<ul class="mt-4 text-red-500">';
 
